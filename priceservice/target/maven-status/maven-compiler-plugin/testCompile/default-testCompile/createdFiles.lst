@@ -1,0 +1,6 @@
+com\ihs\junit\testcases\ConfigLoadTest.class
+com\ihs\junit\testcases\DiskManagerTest.class
+com\ihs\junit\main\TestSuite.class
+com\ihs\junit\testcases\BatchTaskProducerTest.class
+com\ihs\junit\main\TestRunner.class
+com\ihs\junit\testcases\ConsumerTaskTest.class

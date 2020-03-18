@@ -1,0 +1,11 @@
+[INFO ] 2019-10-22 17:03:26.903 [main] LatestPrice - request to fetch price for instrument id INE619B01016 
+[INFO ] 2019-10-22 17:03:26.905 [main] LatestPrice - instrument INE619B01016 latest price 190.0 on date Sat Oct 05 00:00:00 IST 2019
+[INFO ] 2019-10-22 17:03:26.906 [main] BatchService - request to start producer with batch 143 
+[INFO ] 2019-10-22 17:03:26.906 [main] BatchService - batch 143 successfully started
+[INFO ] 2019-10-22 17:03:26.907 [Thread-22] PriceProducerTask - batch 143 :: is in progress, reading file D:\Credence\priceservice\src\test\resources\data\newgen.csv 
+[INFO ] 2019-10-22 17:03:26.908 [Thread-22] PriceProducerTask - batch 143 :: is completed
+[INFO ] 2019-10-22 17:03:28.907 [main] BatchService - request to start producer with batch 144 
+[INFO ] 2019-10-22 17:03:28.911 [main] BatchService - batch 144 successfully started
+[INFO ] 2019-10-22 17:03:28.911 [main] LatestPrice - request to fetch price for instrument id INE619B01017 
+[INFO ] 2019-10-22 17:03:28.911 [main] LatestPrice - instrument INE619B01017 latest price 285.0 on date Mon Feb 18 00:00:00 IST 2019
+[INFO ] 2019-10-22 17:03:28.911 [Thread-23] PriceProducerTask - batch 144 :: is in progress, reading file D:\Credence\priceservice\src\test\resources\data\newgen2.csv 

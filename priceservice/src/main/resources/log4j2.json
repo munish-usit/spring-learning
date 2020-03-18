@@ -1,0 +1,52 @@
+{
+    "configuration": {
+        "name": "default",
+		"monitorInterval": "60",
+		"properties": {
+			"property": [
+			{
+				"name": "log-path",
+				"value": "D:\\Credence\\priceservice\\logs"
+			},
+			{
+				"name": "archive",
+				"value": "${log-path}/archive"
+			}
+			]
+		},
+        "appenders": {
+            "Console": {
+                "name": "STDOUT",
+                "PatternLayout": {
+                    "pattern": "%d{yyyy-MM-dd HH:mm:ss.SSS} %t %-5p %m%n"
+                }
+                
+            },
+			"RollingFile": {
+				"name": "RollingFile-Appender",
+				"fileName": "${log-path}/rollingfile.log",
+				"filePattern": "${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz",
+				"PatternLayout": {
+					"pattern": "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+				},
+				"Policies": {
+					"SizeBasedTriggeringPolicy": {
+						"size": "1 KB"
+					}
+				},
+				"DefaultRolloverStrategy": {
+					"max": "30"
+				}
+			}
+        },
+        "loggers": {
+			"root": {
+                "level": "info",
+                "includeLocation": "false",
+                "AppenderRef": {
+                    "ref": "RollingFile-Appender"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "common": {
+        "baseDirPath": "D:\\Credence\\priceservice\\src\\test\\resources\\data",
+        "dateformat": "dd-MM-yyyy",
+        "csvsplit": ","
+    }
+        
+}
+
+
