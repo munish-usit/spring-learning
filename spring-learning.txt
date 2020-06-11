@@ -1,0 +1,216 @@
+Spring Security -- is a framework widely used to secure a java enterprise application.
+Spring security is a lfilter/layer between incoming http requests and the application code.
+It parse every request and depending on security logic it fails or pass the request.
+It act as filter between application and the user/hacker and validate 2 questions
+Who are you?  Authentication
+What do you want? Authorization
+
+Application Security Framework
+Login and Logout functionality.
+Allow/block access to URL to logged in users
+Allow/block access to URL to logged in users AND with certain roles.
+
+Features
+Username and password based Authentication
+Intra app Oauth 2.0 authorization and authentication
+SSO/LDAP/Okta -- Single Sign Feature
+Microservices security using tokesn,JWT
+Method level security
+
+
+Five Core Concepts in Spring Security
+
+Authentication -- Knowledge Based Authentication
+1. User create/register account with the application. Provide 2 basic info - username and password(encrypted)
+2. Application save user details and over the period of time profile is created for each user based on application type like facebook, amazon.
+3. In order to access the application, user provide username/password. Application authenticate the username/password and allow access to the user.
+
+Possession Based Authentication
+1. OTP based authenticate. Where OTP is sent on user mobile and then after verification access is given.
+2. Key card/ Icard / Swipe -- Each user has access card . Typically used in offices.
+3. Biometric 
+
+Some application used 2 step authentication using both Knowledge and then Possession] based Authentication
+1. User is first authenticated with username/password and then OTP is sent to the user mobile.
+
+
+Authorization -- Who the user is and what a user can do / what permission does a user have .. Its about access.
+Example -- Anonymous user can browse shopping cart but can't do transaction. For transaction they have to be authenticated.
+Applicated user can access their own profile but can' do admin related changes. 
+Admin user can view all profiles depending on how admin role is defined in application
+
+Generally first user is authenticated to know who is the user.
+After authentication, it is checked what a user can do -- authorization
+
+Principal -- currently logged in user/account -- real user can have multiple account/email id
+
+Granted Authority -- Permissions
+Set of permissions in the application
+Permission to change password, view all profiles, do transaction etc
+
+Role --- group of authorites/permissions
+admin -- has 5 permissions
+manager -- has 10 permissions
+employeee -- has 2 permissions
+
+
+Spring Security act as filter which intercept all request
+maven dependency -- spring-boot-starter-security
+Default Behavior
+Add mandatory authentication for all urls (skip some like /error)
+Add login form
+Handles login error
+By default create one user with username - user and password is self generated. We can change default user in application.properties
+
+
+WORKING
+1. By default Spring security authenticate the below configuration
+spring.security.user.password=foo
+server.tomcat.accesslog.enabled=true
+2. To do custom authentication we need to use AuthenticationManager using AuthenticationManagerBuilder
+Steps.
+1.Get hold of AuthenticationManagerBuilder
+2.Set the configuration on the AuthenticationManagerBuilder
+
+Create a class extending WebSecurityConfigurerAdapter
+Override configure method
+Provide @EnableWebSecurity annotation to the class
+
+Authorization using Roles at Backend API/METHODS/FUNCTIONALITY Level
+
+1 /  -- unauthenticated
+2 /user -- authenticataed + role = USER,ADMIN (api/methods/functionality which is read only)
+3 /admin -- authenticataed + role = ADMIN  (api/methods/functionality which is read/write)
+
+Based on roles we can also return different UI with differnet functionalities
+
+
+@Bean annotation is used to create singleton instance of any class in spring (it is producer and consumer is @Autowired)
+To create singleton it can do lazy or eager initilization
+
+Spring cloud -- eureka server as discovery server
+1. Download Eureka Server (spring boot project) dependency Eureka Server
+2. Start Eureka Server  (start the eureka server project)
+3. Register microservices with eureka server using eureka client.  Eureka Discovery
+4. Register all microservices(calling service + called service) with eureka server.
+
+
+Microservices  Level 2
+Fault Tolerance  - Given an application, if there is fault in one or module then what is tolerant level of the application. If one of the microservice goes down, then how much an application can tolerate.
+Resilient -- How many faults an application can tolerate before going down or crashing. It can be measured as how quickly an application can rebounce after going down,
+
+Issue With Microservices
+1. Microservice goes down 
+Solution - Have multiple instance of a microservice and use client side load balancing. Spring cloud used ribbon for client-side load balancing.
+It send request in round robin manner to the multiple instances.
+Multiple instances are also used to handle high load.
+
+2. Microservice is slow
+This is bigger problem as compared to microservice down because in this case a thread will be occupied and waiting for the result.
+Due to this at a particular time all threads will be waiting for the result and web-server(tomcat) will not have any free thread to handle new request.
+Due to this overall system will become very slow.
+Slowness in one microservice will also make another microservice slow because there will less free threads to server other microservices request.
+Solution --
+Temporary Solution -- Increase thread pool size to defer the problem for some time. 
+Response Timeout - We can define timeout as max time a thread will wait for the result. If timeout exceed thread will return with some error or exception and return to the thread pool
+Issue with this approach -- Timeout is hardcoded, there is no mechanism to find out ideal timeout value.
+If incoming request frequency is very high as compared to the timeout defined then it will eventually lead to thread pool/ resource exhaust problem which will eventually slow down the entire system.
+
+Ideal Solution
+Circuit Breaker Pattern -- 
+Detect something is wrong ie detect which mircorservice is down or slow or faulty.
+Stop sending the request to faulty microservices so that other microservices are not impacted adn the entire system work normally.
+
+Identify when to break circuit for a microservice ie to know when a microservice is faulty or down or slow.
+Parameters -- when to break a circuit ie to stop making the connection to faulty microservice.
+1. Last n request to consider for the decision  ie to analyze last n request data Eg 5
+@HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value="100"), // n request
+2. How many of those should fail ? Eg 3
+@HystrixProperty(name="circuitBreaker.errorThresholdPercentage",value="50"), // error request
+3. Timeout duration ie duration after which request will be timeout and request will be marked as failure.  Eg 2s
+@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="2000"), // timeout
+Parameters -- when to get normal ie start making the request to microservice
+4. How long after circuit break to try again ? ie sleep window Eg 10s
+@HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds",value="5000"), // sleep time window
+
+Performance testing can give hint about ideal value of these parameters.
+
+What to do when circuit breaks? Fallback Mechanism
+1. Throw an error message
+2. Return Fallback/Default response
+3. Return cache response whenever possible
+
+Why circuit breakers?
+1. Failing fast -- fail fast to save the system.
+2. Fallback functionality
+3. Automatic Recovery after sleep window time.
+
+Circuit Breaker -- Hystrix
+Implement the circuit breaker pattern.
+Easy to define circuit breaker pattern params
+Work well with spring boot
+
+Adding Hysterix to project
+1. Add maven dependency spring-cloud-starter-netflix-hystrix
+2. Add @EnableCircuitBreaker to the application class to enable Hystrix.
+3. Add @HystrixCommand to the method that need circuit breaker.
+4. Configure Hysterix params.
+5. @HystrixCommand(fallbackMethod = "getFallbackCatalog",
+			commandProperties = {
+					@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="2000"), // timeout
+					@HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value="100"), // n request
+					@HystrixProperty(name="circuitBreaker.errorThresholdPercentage",value="50"), // error request
+					@HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds",value="5000"), // sleep time window
+			})
+
+How does Hystrix work
+We add @HystrixCommand(fallbackMethod = "getDefaultCatalog") to the method where circuit breaker need to be implemented.
+Hystrix create a wrapper/proxy class around the class where HystixCommand annotation is used.
+Wrapper/Proxy class contains API class along with circuit breaker logic.
+Hystrix kind of intercept each request and response.
+Hystrix work only with those methods which is called by an instance provided by spring framework because hystrix can intercept that calling and provide proxy class instance.
+Hystrix doesn't work if the circuit breaker method is called internally by another method of same class because Hystrix doesn't have control and can't intercept the method calling.
+If we need circuit breaker at low level methods than these methods need to be placed in an external class and that class should be autowired.
+This approach works because in Autowired case, instance will be provided by spring framework and hystrix can intercept that call and provide proxy class instance with circuit breaker functionality.
+
+Bulkhead Pattern
+Pattern is used to isolate the dependency so that problem in one microservice doesn't impact other microservices.
+It is done by dividing the overall threadpool according to the number of microservices.
+Eg Microservice A is calling Microservice B and Microservice C
+We will divide threadpool of microservice A and allocate seprate threadpools to call microservice B and microservice C respectively.
+
+API Gateway
+
+Service Mesh
+
+REST Standard
+
+Resource - topic
+
+Base url /topics   --- base url remain same
+
+GET /topics --- get all topics
+GET /topics/id  -- get specific topic id
+
+
+POST /topics  -- create new topic (topic info is given in post body)
+
+PUT /topics/id -- update the topic with id
+
+DELETE /topics/id -- delete the topic with id
+
+
+
+https://java-design-patterns.com/
+
+
+
+
+
+
+
+
+
+
+
+
