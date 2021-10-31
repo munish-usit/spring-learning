@@ -9,8 +9,8 @@
 		<version>2.5.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.spring</groupId>
-	<artifactId>discovery-server</artifactId>
+	<groupId>com.springcloud.tutorial</groupId>
+	<artifactId>spring-cloud-discovery-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>discovery-server</name>
 	<description>Demo project for Spring Boot</description>
