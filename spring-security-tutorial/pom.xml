@@ -9,8 +9,8 @@
 		<version>2.5.4</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.security</groupId>
-	<artifactId>security-tutorial</artifactId>
+	<groupId>com.security.tutorial</groupId>
+	<artifactId>spring-security-tutorial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>security-tutorial</name>
 	<description>Demo project for Spring Security</description>
