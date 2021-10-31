@@ -1,0 +1,372 @@
+{
+	"info": {
+		"_postman_id": "09e2b316-b29f-48bb-921c-43cce7df17d3",
+		"name": "Spring-Boot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "MongoDB-CREATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"name\" : \"Rahul Sharma\",\r\n  \"userSettings\" : {\r\n    \"car\" : \"i10\",\r\n    \"address\":\"noida\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8102/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"users"
+					]
+				},
+				"description": "create user post request"
+			},
+			"response": []
+		},
+		{
+			"name": "MongoDB-GET",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n  \"name\" : \"Munish\",\r\n  \"userSettings\" : {\r\n    \"car\" : \"creta\",\r\n    \"address\":\"noida\"\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8102/users/5fd1b5bff17cb904253ed330",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"users",
+						"5fd1b5bff17cb904253ed330"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SQL-CREATE",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\":\"Rahul\",\r\n    \"homeAddress\" : \r\n        {\r\n        \"zipcode\" : \"110094\",\r\n        \"city\":\"noida\",\r\n        \"country\":\"india\"\r\n        },\r\n    \"officeAddress\" : \r\n        {\r\n        \"zipcode\" : \"110090\",\r\n        \"city\":\"noida\",\r\n        \"country\":\"india\"\r\n        },\r\n    \"interestAreas\" : [\r\n        {\"id\":\"1\",\"name\":\"sports\"},\r\n         {\"id\":\"2\",\"name\":\"bike\"}\r\n    ],\r\n    \"school\" : {\"id\":\"123\",\"name\":\"army school bikaner\"},\r\n    \"vehicles\" : [\r\n        {\"id\":\"1\",\"name\":\"i10\"},\r\n         {\"id\":\"2\",\"name\":\"creta\"}\r\n    ],\r\n    \"articles\" : [\r\n        {\"id\":\"1\",\"name\":\"article1\"},\r\n         {\"id\":\"2\",\"name\":\"article2\"}\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8102/usersdetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"usersdetails"
+					]
+				},
+				"description": "Create user in postgres SQL"
+			},
+			"response": []
+		},
+		{
+			"name": "SQL-GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8102/usersdetails/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8102",
+					"path": [
+						"usersdetails",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spring-Secuirty",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin@email.com",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spring-Secuirty BearerToken",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGVtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImV4cCI6MTYzMzEwNzc3NiwiaWF0IjoxNjMzMDg5Nzc2fQ.g9WJ6bgYlaxoCnus_qT0oGwv0jDbPlinjZVyodZrsbPnKqiIgrg2KtQSJt2Cqn8Ig4fqZbSYlBi3HNqFCsiB0w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v1/admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Spring-Secuirty Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"user@email.com\",\r\n    \"password\":\"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v1/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEPARTMENT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"departmentId\":1,\r\n    \"departmentName\":\"Admin\",\r\n    \"departmentAddress\":\"Delhi\",\r\n    \"departmentCode\":\"101\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/departments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"departments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEPARTMENT-PROPERTY",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"departmentId\":1,\r\n    \"departmentName\":\"Admin\",\r\n    \"departmentAddress\":\"Delhi\",\r\n    \"departmentCode\":\"101\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8081/departments/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"departments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DEPARTMENT-PROPERTY-REFRESH",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"departmentId\":1,\r\n    \"departmentName\":\"Admin\",\r\n    \"departmentAddress\":\"Delhi\",\r\n    \"departmentCode\":\"101\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/refresh",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "USER",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":1,\r\n    \"userName\":\"Rahul\",\r\n    \"departmentId\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API-GATEWAY",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\":1,\r\n    \"userName\":\"Rahul\",\r\n    \"departmentId\":1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/users/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
