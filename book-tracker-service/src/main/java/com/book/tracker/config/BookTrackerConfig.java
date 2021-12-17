@@ -11,5 +11,11 @@ public class BookTrackerConfig {
 
 	@Value("${book.tracker.dataload:false}")
 	private boolean isDataLoad;
+	
+	@Value("${datadump.author.location}")
+	private String authorDumpLocation;
+	
+	@Value("${datadump.work.location}")
+	private String workDumpLocation;
 
 }
